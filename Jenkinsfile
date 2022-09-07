@@ -24,7 +24,16 @@ pipeline {
                sh "mvn clean verify sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://devsecops-bg.centralus.cloudapp.azure.com:9000 -Dsonar.login=sqp_c0db3bcfffddd36d4feb59157ad7c612f69da557"
             }
          } 
-
+      Stage("Vulnerability Scan -Docker"){
+            steps {
+               sh "mvn dependency-check:check"
+               }
+               post {
+                 always {
+                    dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
+                    }
+                }
+              }
       stage("docker build and push"){ 
           steps {
              withDockerRegistry([credentialsId: "docker-hub", url: ""]){
