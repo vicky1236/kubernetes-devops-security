@@ -19,6 +19,14 @@ pipeline {
                   }
             }
         } 
+      stage('mvn clean') {
+            steps {
+                
+                sh "mvn clean install"
+                sh "mvn clean compile"
+                
+            }
+            }
       stage('SonarQube -SAST') {
             steps {
                 
