@@ -19,21 +19,27 @@ pipeline {
                   }
             }
         } 
-      stage('mvn clean') {
-            steps {
+	   stage('SonarQube Analysis') {
+	    def mvn = tool 'Default Maven';
+	    withSonarQubeEnv() {
+	      sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=numeric-bg"
+	    }
+  }
+//       stage('mvn clean') {
+//             steps {
                 
-                sh "mvn clean install"
-                sh "mvn clean compile"
+//                 sh "mvn clean install"
+//                 sh "mvn clean compile"
                 
-            }
-            }
-      stage('SonarQube -SAST') {
-            steps {
+//             }
+//             }
+//       stage('SonarQube -SAST') {
+//             steps {
                 
-                sh "mvn clean verify sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://devsecops-bg.centralus.cloudapp.azure.com:9000 -Dsonar.login=sqp_c0db3bcfffddd36d4feb59157ad7c612f69da557"
+//                 sh "mvn clean verify sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://devsecops-bg.centralus.cloudapp.azure.com:9000 -Dsonar.login=sqp_c0db3bcfffddd36d4feb59157ad7c612f69da557"
                 
-           }
-            }
+//            }
+//             }
       stage("docker build and push"){ 
           steps {
              withDockerRegistry([credentialsId: "docker-hub", url: ""]){
