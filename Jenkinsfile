@@ -21,7 +21,7 @@ pipeline {
         } 
       stage('SonarQube - SAST') {
             steps {
-               sh "mvn clean verify sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://devsecops-bg.centralus.cloudapp.azure.com:9000 -Dsonar.login=sqp_c0db3bcfffddd36d4feb59157ad7c612f69da557"
+               sh "mvn clean verify sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://devsecops-bg.centralus.cloudapp.azure.com:9000 -Dsonar.login=sqp_2d43d3f6c9b77bb28a159ebbb4948702e5aa564d"
             }
          } 
       stage("Vulnerability Scan -Docker"){
