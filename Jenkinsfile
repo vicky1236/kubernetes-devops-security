@@ -34,17 +34,17 @@ pipeline {
                     }
                 }
               }
-      stage("trivy scan"){
-        steps{
-          sh "bash trivy-docker-image-scan.sh"
-        }
-      }
+//       stage("trivy scan"){
+//         steps{
+//           sh "bash trivy-docker-image-scan.sh"
+//         }
+//       }
       stage("docker build and push"){ 
           steps {
              withDockerRegistry([credentialsId: "docker-hub", url: ""]){
 		                sh 'printenv'
 		                sh 'sudo docker build -t bharathbg/numeric-app:""$GIT_COMMIT"" .' //docker build dockerhub
-		                sh 'sudo docker push bharathbg/numeric-app:""$GIT_COMMIT""'    //modified the login
+		                sh 'sudo docker push bharathbg/numeric-app:""$GIT_COMMIT""'    
 		            }
           }
 	  }
