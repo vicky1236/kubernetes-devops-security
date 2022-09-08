@@ -57,7 +57,7 @@ pipeline {
              }
            }
          }
-      stage('k8 deployment -DEV') {
+      stage('k8 deployment -prod') {
             steps {
                 withKubeConfig([credentialsId: 'kubeconfig']) {
                 sh "sed -i 's#replace#bharathbg/numeric-app:${GIT_COMMIT}#g' k8s_deployment_prod.yaml"
