@@ -34,11 +34,11 @@ pipeline {
                     }
                 }
               }
-      stage("trivy scan"){
-        steps{
-          sh "bash trivy-docker-image-scan.sh"
-        }
-      }
+//       stage("trivy scan"){
+//         steps{
+//           sh "bash trivy-docker-image-scan.sh"
+//         }
+//       }
       stage("docker build and push"){ 
           steps {
              withDockerRegistry([credentialsId: "docker-hub", url: ""]){
