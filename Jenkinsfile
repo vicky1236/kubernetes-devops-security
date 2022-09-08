@@ -60,8 +60,8 @@ pipeline {
       stage('k8 deployment -prod') {
             steps {
                 withKubeConfig([credentialsId: 'kubeconfig']) {
-                sh "sed -i 's#replace#bharathbg/numeric-app:${GIT_COMMIT}#g' k8s_deployment_prod.yaml"
-                sh "kubectl apply -f k8s_deployment_prod.yaml"
+                sh "sed -i 's#replace#bharathbg/numeric-app:${GIT_COMMIT}#g' k8_deployment_prod.yaml"
+                sh "kubectl apply -f k8_deployment_prod.yaml"
              }
            }
          }
