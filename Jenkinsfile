@@ -57,5 +57,13 @@ pipeline {
              }
            }
          }
+      stage('k8 deployment -DEV') {
+            steps {
+                withKubeConfig([credentialsId: 'kubeconfig']) {
+                sh "sed -i 's#replace#bharathbg/numeric-app:${GIT_COMMIT}#g' k8s_deployment_prod.yaml"
+                sh "kubectl apply -f k8s_deployment_prod.yaml"
+             }
+           }
+         }
     }
 }
